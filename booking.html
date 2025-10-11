@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Flight | SkyVoyage Airlines</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .booking-section {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(25,118,210,0.08);
+        }
+        .passenger-group {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .booking-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .booking-form input, .booking-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #bdbdbd;
+            font-size: 1em;
+            background: #f5faff;
+        }
+        .booking-form button {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            padding: 14px 0;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            transition: background 0.2s;
+        }
+        .booking-form button:hover {
+            background: #1565c0;
+        }
+        .flight-summary {
+            background: #f5faff;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #e3f2fd;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">SkyVoyage Airlines</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="searchflight.html">Search Flights</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="booking-section">
+            <div id="flightSummary" class="flight-summary"></div>
+            <form class="booking-form" id="bookingForm">
+                <h2>Passenger Information</h2>
+                <div id="passengerFields"></div>
+                <label for="numPassengers">Number of Passengers</label>
+                <input type="number" id="numPassengers" name="numPassengers" min="1" max="10" value="1" required>
+                <button type="submit">Proceed to Summary</button>
+            </form>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 SkyVoyage Airlines. All rights reserved.</p>
+    </footer>
+    <script src="booking.js"></script>
+</body>
+</html>

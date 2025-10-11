@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Flights | SkyVoyage Airlines</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .search-section, .results-section {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(25,118,210,0.08);
+            margin-bottom: 32px;
+        }
+        .flight-card {
+            border: 1px solid #e3f2fd;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 18px;
+            background: #f5faff;
+        }
+        .flight-card .select-btn {
+            float: right;
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .flight-details {
+            margin-bottom: 8px;
+        }
+        .trip-type {
+            margin-bottom: 20px;
+        }
+        .trip-type label {
+            margin-right: 20px;
+        }
+        .date-inputs {
+            margin-bottom: 20px;
+        }
+        .date-inputs label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .date-inputs input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #bdbdbd;
+            margin-bottom: 16px;
+            background: #f5faff;
+        }
+        button.btn {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            padding: 12px 0;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+        }
+        button.btn:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">SkyVoyage Airlines</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Destinations</a></li>
+            <li><a href="#">Deals</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="search-section">
+            <h2>Search Flights</h2>
+
+            <!-- Trip type -->
+            <div class="trip-type">
+                <label>
+                    <input type="radio" name="tripType" value="oneway" checked> One-way
+                </label>
+                <label>
+                    <input type="radio" name="tripType" value="roundtrip"> Round-trip
+                </label>
+            </div>
+
+            <!-- Search form -->
+            <form id="searchForm">
+                <label for="from">From</label>
+                <select id="from" name="from" required>
+                    <option value="">Select Country</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Philippines">Philippines</option>
+                </select>
+
+                <label for="to">To</label>
+                <select id="to" name="to" required>
+                    <option value="">Select Country</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Philippines">Philippines</option>
+                </select>
+
+                <div class="date-inputs">
+                    <label for="departDate">Depart Date</label>
+                    <input type="date" id="departDate" name="departDate" required>
+
+                    <label for="returnDate">Return Date</label>
+                    <input type="date" id="returnDate" name="returnDate" disabled>
+                </div>
+
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </section>
+
+        <section class="results-section" id="resultsSection" style="display:none;">
+            <h2>Available Flights</h2>
+            <div id="flightResults"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 SkyVoyage Airlines. All rights reserved.</p>
+    </footer>
+
+    <script src="searchflight.js"></script>
+    <script>
+        // Enable/disable return date input based on trip type
+        const tripTypeRadios = document.querySelectorAll('input[name="tripType"]');
+        const returnDateInput = document.getElementById('returnDate');
+
+        tripTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === "roundtrip") {
+                    returnDateInput.disabled = false;
+                } else {
+                    returnDateInput.disabled = true;
+                    returnDateInput.value = "";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
