@@ -1,0 +1,53 @@
+.booking-section {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(25,118,210,0.08);
+}
+.passenger-group {
+    background: #e3f2fd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+.booking-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+.booking-form input, .booking-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #bdbdbd;
+    font-size: 1em;
+    background: #f5faff;
+}
+.booking-form button {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    padding: 14px 0;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+    transition: background 0.2s;
+}
+.booking-form button:hover { background: #1565c0; }
+.flight-summary {
+    background: #f5faff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    border: 1px solid #e3f2fd;
+}
+
+/* contact-info-group removed */
+

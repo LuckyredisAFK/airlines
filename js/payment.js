@@ -1,7 +1,7 @@
 // payment.js - populate receipt and enable printing
 
 function formatCurrency(n) {
-  return '$' + Number(n).toFixed(2);
+  return '₱' + Number(n).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function todayIso() {
@@ -25,6 +25,7 @@ function todayIso() {
   const passengers = JSON.parse(localStorage.getItem('passengers')) || [];
   const numPassengers = parseInt(localStorage.getItem('numPassengers')) || passengers.length || 1;
   const totalAmountStored = parseFloat(localStorage.getItem('totalAmount')) || null;
+  let ticketNumbers = JSON.parse(localStorage.getItem('ticketNumbers') || 'null');
 
   // Booking meta
   const ref = 'SV' + Math.floor(Math.random() * 900000 + 100000); // fake ref
@@ -51,12 +52,26 @@ function todayIso() {
   }
 
   // Passengers
+  // Ensure ticket numbers exist (one per passenger)
+  function generateTicketNumber() {
+    // Use common 3-digit airline prefix + 10-digit serial (pseudo)
+    const prefix = '781';
+    let serial = '';
+    for (let i = 0; i < 10; i++) serial += Math.floor(Math.random() * 10);
+    return `${prefix}-${serial}`;
+  }
+  if (!ticketNumbers || !Array.isArray(ticketNumbers) || ticketNumbers.length !== passengers.length) {
+    ticketNumbers = passengers.map(() => generateTicketNumber());
+    localStorage.setItem('ticketNumbers', JSON.stringify(ticketNumbers));
+  }
+
   passengersList.innerHTML = '';
   if (passengers.length === 0) {
     passengersList.innerHTML = '<li>No passenger info found.</li>';
   } else {
     passengers.forEach((p, i) => {
-      passengersList.innerHTML += `<li><strong>Passenger ${i+1}:</strong> ${p.name} ${p.age ? '(' + p.age + ' yrs)' : ''}<br/><span class="small">Email: ${p.email || 'N/A'}</span></li>`;
+      const tNo = ticketNumbers[i] || generateTicketNumber();
+      passengersList.innerHTML += `<li><strong>Passenger ${i+1}:</strong> ${p.name} ${p.age ? '(' + p.age + ' yrs)' : ''}<br/><span class="small">Ticket No: ${tNo}</span><br/><span class="small">Email: ${p.email || 'N/A'}</span></li>`;
     });
   }
 
@@ -93,3 +108,5 @@ function todayIso() {
     window.location.href = "index.html";
   });
 })();
+
+

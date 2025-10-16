@@ -1,0 +1,102 @@
+.content-grid {
+    max-width: 1200px;
+    margin: 48px auto;
+    padding: 0 16px;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+.search-section, .results-section {
+    max-width: none;
+    margin: 0;
+    background: #fff;
+    padding: 36px;
+    border-radius: 14px;
+    box-shadow: 0 6px 28px rgba(25,118,210,0.09);
+    margin-bottom: 32px;
+}
+.search-section { flex: 1; }
+.results-section { flex: 1; }
+.flight-card {
+    border: 1px solid #e3f2fd;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 18px;
+    background: #f5faff;
+}
+.flight-card .select-btn {
+    float: right;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.flight-details { margin-bottom: 8px; }
+.trip-type { margin-bottom: 20px; }
+.trip-type label { margin-right: 20px; }
+.date-inputs { margin-bottom: 20px; }
+.date-inputs label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+.date-inputs input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #bdbdbd;
+    margin-bottom: 16px;
+    background: #f5faff;
+}
+button.btn {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+}
+button.btn:hover { background: #1565c0; }
+
+/* New search form layout */
+.trip-tabs {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 16px;
+}
+.trip-tab input { margin-right: 8px; }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+}
+.form-grid.secondary {
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 20px;
+}
+.field-group label { display:block; font-weight:600; margin-bottom:8px; color:#0b4fa2; }
+.field-group select, .field-group input[type="date"], .field-group input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #bdbdbd;
+    background: #f5faff;
+    font-size: 14px;
+}
+.actions-row { display:flex; justify-content:flex-end; margin-top: 20px; }
+
+.search-section h2 { margin-top: 0; margin-bottom: 20px; color:#123e75; }
+
+@media (max-width: 900px) {
+    .form-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-grid.secondary { grid-template-columns: repeat(2, 1fr); }
+}
+
+

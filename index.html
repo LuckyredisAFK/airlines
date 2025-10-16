@@ -2,28 +2,165 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SkyVoyage Airlines</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Search Flights | SkyVoyage Airlines</title>
+    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="style/index.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">SkyVoyage Airlines</div>
         <ul class="nav-links">
-            <li><a href="#">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="#">Destinations</a></li>
             <li><a href="#">Deals</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
     </nav>
-    <header class="hero">
-        <div class="hero-content">
-            <h1>Fly Higher, Dream Bigger</h1>
-            <p>Discover new destinations and book your next adventure with SkyVoyage Airlines.</p>
-            <a href="searchflight.html" class="btn" id="bookFlightBtn">Search a Flight</a>
+    <main>
+        <div class="content-grid">
+        <section class="search-section">
+            <h2>Search Flights</h2>
+
+            <!-- Search form -->
+            <form id="searchForm">
+                <div class="trip-tabs">
+                    <label class="trip-tab">
+                        <input type="radio" name="tripType" value="oneway"> One-way
+                    </label>
+                    <label class="trip-tab">
+                        <input type="radio" name="tripType" value="roundtrip" checked> Round-trip
+                    </label>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field-group">
+                        <label for="from">From</label>
+                        <select id="from" name="from" required>
+                            <option value="">Select Destination</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Philippines">Philippines</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="to">To</label>
+                        <select id="to" name="to" required>
+                            <option value="">Select Destination</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Philippines">Philippines</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="departDate">Depart</label>
+                        <input type="date" id="departDate" name="departDate" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="returnDate">Return</label>
+                        <input type="date" id="returnDate" name="returnDate" disabled>
+                    </div>
+                </div>
+
+                <div class="form-grid secondary">
+                    <div class="field-group">
+                        <label for="adults">Adults</label>
+                        <select id="adults">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="children">Children</label>
+                        <select id="children">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="infants">Infant</label>
+                        <select id="infants">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="actions-row">
+                    <button type="submit" class="btn">Search flights</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="results-section" id="resultsSection">
+            <h2>Available Flights</h2>
+            <div id="flightResults"></div>
+        </section>
         </div>
-    </header>
+    </main>
+
     <footer class="footer">
         <p>&copy; 2025 SkyVoyage Airlines. All rights reserved.</p>
     </footer>
+
+    <script src="js/searchflight.js"></script>
+    <script>
+        // Enable/disable return date input based on trip type
+        const tripTypeRadios = document.querySelectorAll('input[name="tripType"]');
+        const returnDateInput = document.getElementById('returnDate');
+        
+        tripTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === "roundtrip") {
+                    returnDateInput.disabled = false;
+                    returnDateInput.required = true;
+                } else {
+                    returnDateInput.disabled = true;
+                    returnDateInput.required = false;
+                    returnDateInput.value = "";
+                }
+            });
+        });
+        // initialize required based on default checked radio
+        const checked = document.querySelector('input[name="tripType"]:checked');
+        if (checked && checked.value === 'roundtrip') {
+            returnDateInput.disabled = false;
+            returnDateInput.required = true;
+        }
+
+        // Date constraints: Only October 2025, and depart cannot be in the past
+        const departDateInput = document.getElementById('departDate');
+        const OCT_START = '2025-10-01';
+        const OCT_END = '2025-10-31';
+
+        function toIsoDate(d) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        const today = new Date();
+        const todayIso = toIsoDate(today);
+
+        // Limit pickers to October 2025
+        departDateInput.setAttribute('min', Math.max(Date.parse(todayIso), Date.parse(OCT_START)) === Date.parse(todayIso) && todayIso.startsWith('2025-10') ? todayIso : OCT_START);
+        departDateInput.setAttribute('max', OCT_END);
+        returnDateInput.setAttribute('min', OCT_START);
+        returnDateInput.setAttribute('max', OCT_END);
+
+        // Keep return >= depart
+        departDateInput.addEventListener('change', function() {
+            const val = this.value || OCT_START;
+            const effective = val < OCT_START ? OCT_START : val;
+            returnDateInput.min = effective;
+            if (returnDateInput.value && returnDateInput.value < effective) {
+                returnDateInput.value = effective;
+            }
+        });
+    </script>
 </body>
 </html>
